@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <SolidColorBrush x:Key="PanelBackground" Color="#211E1B" />
+    <SolidColorBrush x:Key="PanelSurface" Color="#302A24" />
+    <SolidColorBrush x:Key="PanelBorder" Color="#66543A" />
+    <SolidColorBrush x:Key="PanelAccent" Color="#E2B968" />
+    <SolidColorBrush x:Key="PanelText" Color="#F1EADF" />
+  </Styles.Resources>
+  <Style Selector="Window.workspace">
+    <Setter Property="Background" Value="{StaticResource PanelBackground}" />
+    <Setter Property="Foreground" Value="{StaticResource PanelText}" />
+  </Style>
+  <Style Selector="Border.panel">
+    <Setter Property="Background" Value="{StaticResource PanelSurface}" />
+    <Setter Property="BorderBrush" Value="{StaticResource PanelBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="9" />
+  </Style>
+  <Style Selector="TextBlock.title">
+    <Setter Property="Foreground" Value="{StaticResource PanelAccent}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="17" />
+  </Style>
+</Styles>

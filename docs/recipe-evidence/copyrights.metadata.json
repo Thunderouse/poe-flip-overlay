@@ -1,0 +1,16 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Path_of_Exile_Wiki%3ACopyrights&prop=wikitext&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Path_of_Exile_Wiki%3ACopyrights&prop=wikitext&format=json",
+  "checkedAt": "2026-11-04T08:40:48.406258+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:40:48 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": "468",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "copyrights.body",
+  "sha256": "7624a7f4b869226e3fe0d62202d5182d75612189f4aac6d1b3423d79fe5015ee",
+  "byteLength": 468
+}

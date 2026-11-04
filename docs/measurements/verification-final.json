@@ -1,0 +1,58 @@
+[
+  {
+    "command": "<dotnet-sdk-directory>/dotnet format FlipOverlay.slnx --no-restore",
+    "result": {
+      "output": "",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet restore FlipOverlay.slnx --locked-mode",
+    "result": {
+      "output": "Определение проектов для восстановления...\n  Все проекты обновлены для восстановления.",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet build FlipOverlay.slnx -c Release --no-restore",
+    "result": {
+      "output": "FlipOverlay.Platform.Abstractions -> <repository>/src/FlipOverlay.Platform.Abstractions/bin/Release/net10.0/FlipOverlay.Platform.Abstractions.dll\n  FlipOverlay.Infrastructure -> <repository>/src/FlipOverlay.Infrastructure/bin/Release/net10.0/FlipOverlay.Infrastructure.dll\n  FlipOverlay.Platform.Windows -> <repository>/src/FlipOverlay.Platform.Windows/bin/Release/net10.0/FlipOverlay.Platform.Windows.dll\n  FlipOverlay.Infrastructure.Tests -> <repository>/tests/FlipOverlay.Infrastructure.Tests/bin/Release/net10.0/FlipOverlay.Infrastructure.Tests.dll\n  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll\n  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll\n  FlipOverlay.App -> <repository>/src/FlipOverlay.App/bin/Release/net10.0/FlipOverlay.App.dll\n  FlipOverlay.Diagnostics -> <repository>/tools/Diagnostics/bin/Release/net10.0/FlipOverlay.Diagnostics.dll\n  FlipOverlay.Platform.Tests -> <repository>/tests/FlipOverlay.Platform.Tests/bin/Release/net10.0/FlipOverlay.Platform.Tests.dll\n  FlipOverlay.App.Tests -> <repository>/tests/FlipOverlay.App.Tests/bin/Release/net10.0/FlipOverlay.App.Tests.dll\n\nСборка успешно завершена.\n    Предупреждений: 0\n    Ошибок: 0\n\nПрошло времени 00:00:01.67",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet test FlipOverlay.slnx -c Release --no-build --no-restore --logger trx --results-directory artifacts/test-results-final",
+    "result": {
+      "output": "Тестовый запуск для <repository>/tests/FlipOverlay.Platform.Tests/bin/Release/net10.0/FlipOverlay.Platform.Tests.dll (.NETCoreApp,Version=v10.0)\nТестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)\nТестовый запуск для <repository>/tests/FlipOverlay.App.Tests/bin/Release/net10.0/FlipOverlay.App.Tests.dll (.NETCoreApp,Version=v10.0)\nТестовый запуск для <repository>/tests/FlipOverlay.Infrastructure.Tests/bin/Release/net10.0/FlipOverlay.Infrastructure.Tests.dll (.NETCoreApp,Version=v10.0)\nОбщее количество тестовых файлов (1), соответствующих указанному шаблону.\nОбщее количество тестовых файлов (1), соответствующих указанному шаблону.\nОбщее количество тестовых файлов (1), соответствующих указанному шаблону.\nОбщее количество тестовых файлов (1), соответствующих указанному шаблону.\nФайл результатов: <repository>/artifacts/test-results-final/_MacBookAir_2026-11-04_22_26_28_net10.0.trx\n\nПройден!   : не пройдено     0, пройдено    16, пропущено     0, всего    16, длительность 37 ms. - FlipOverlay.Platform.Tests.dll (net10.0)\nФайл результатов: <repository>/artifacts/test-results-final/_MacBookAir_2026-11-04_22_26_28_net10.0[1].trx\n\nПройден!   : не пройдено     0, пройдено    70, пропущено     0, всего    70, длительность 35 ms. - FlipOverlay.Core.Tests.dll (net10.0)\nФайл результатов: <repository>/artifacts/test-results-final/_MacBookAir_2026-11-04_22_26_28_net10.0[2].trx\n\nПройден!   : не пройдено     0, пройдено    60, пропущено     0, всего    60, длительность 254 ms. - FlipOverlay.Infrastructure.Tests.dll (net10.0)\nФайл результатов: <repository>/artifacts/test-results-final/_MacBookAir_2026-11-04_22_26_29_net10.0.trx\n\nПройден!   : не пройдено     0, пройдено    30, пропущено     0, всего    30, длительность 739 ms. - FlipOverlay.App.Tests.dll (net10.0)",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet format FlipOverlay.slnx --verify-no-changes --no-restore",
+    "result": {
+      "output": "",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet run --project src/FlipOverlay.App -c Release --no-build -- --selftest",
+    "result": {
+      "output": "Offline selftest PASS: numeric sort both directions, unknown last, freeze, identity, unknown manual timestamp/gold. No GUI, storage or network initialized.",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  {
+    "command": "<dotnet-sdk-directory>/dotnet run --project src/FlipOverlay.App -c Release --no-build -- --ui-smoke",
+    "result": {
+      "output": "",
+      "exit_code": 0,
+      "error": null
+    }
+  }
+]

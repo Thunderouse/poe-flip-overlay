@@ -1,0 +1,15 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=help&modules=cargoquery%7Cparse%7Cquery%2Brevisions&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=help&modules=cargoquery%7Cparse%7Cquery%2Brevisions&format=json",
+  "checkedAt": "2026-11-04T08:40:59.671880+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:41:00 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "api-help.body",
+  "sha256": "ae0ac5d9196d1f00698811c49947c2b59a32591fb041bce28b3ea6e0e1b1a387",
+  "byteLength": 36473
+}

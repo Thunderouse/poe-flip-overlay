@@ -1,0 +1,15 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor_recipe_system&prop=wikitext&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor_recipe_system&prop=wikitext&format=json",
+  "checkedAt": "2026-11-04T08:40:36.420247+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:40:36 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "vendor-recipes.body",
+  "sha256": "b70d26dfa3463700f0e4778024c6b54a85099d2deda4e4cd046ea50569706ed6",
+  "byteLength": 55346
+}

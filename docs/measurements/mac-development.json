@@ -1,0 +1,726 @@
+{
+  "SchemaVersion": 1,
+  "MeasuredAtUtc": "2026-11-04T14:09:53.364936+00:00",
+  "EvidenceKind": "macOS development-host console benchmark; not a Windows release gate",
+  "BuildConfiguration": "Release",
+  "Runtime": ".NET 10.0.14",
+  "RuntimeIdentifier": "osx-arm64",
+  "OS": "macOS 27.2.0",
+  "OSProductVersion": "27.2",
+  "OSBuild": "26B123",
+  "CPU": "Apple M1",
+  "LogicalProcessors": 8,
+  "Sdk": {
+    "ExitCode": 145,
+    "Text": "6.0.200 [/usr/local/share/dotnet/sdk]\n6.0.202 [/usr/local/share/dotnet/sdk]\n6.0.403 [/usr/local/share/dotnet/sdk]",
+    "Error": "The command could not be loaded, possibly because:\n  * You intended to execute a .NET application:\n      The application \u0027--version\u0027 does not exist.\n  * You intended to execute a .NET SDK command:\n      A compatible .NET SDK was not found.\n\nRequested SDK version: 10.0.403\nglobal.json file: <repository>/global.json\n\nInstalled SDKs:\n\nInstall the [10.0.403] .NET SDK or update [<repository>/global.json] to match an installed SDK.\n\nLearn about SDK resolution:\nhttps://aka.ms/dotnet/sdk-not-found"
+  },
+  "GitCommit": "UNBORN HEAD \u2014 no commit exists",
+  "Uncommitted": true,
+  "GitStatus": {
+    "ExitCode": 0,
+    "Text": "?? .editorconfig\n?? .github/\n?? .gitignore\n?? Directory.Build.props\n?? FlipOverlay.slnx\n?? docs/\n?? global.json\n?? platform-test-evidence.txt\n?? src/\n?? tests/\n?? tools/",
+    "Error": ""
+  },
+  "Fixture": {
+    "OfflineOnly": true,
+    "Valuations": 10000,
+    "RecipeEdges": 5000,
+    "ManualRoutes": 5000,
+    "LegsPerManualRoute": 2,
+    "Candidates": 5000,
+    "AcceptedManualRoutes": 5000,
+    "ProjectionRows": 5000,
+    "Description": "Disjoint synthetic recipe pairs and independently confirmed two-leg synthetic routes; unknown gold; no source timestamp for aggregates"
+  },
+  "FixtureConstructionMs": 10.7605,
+  "FirstInvocation": {
+    "CandidateCalculation": {
+      "ElapsedMs": 44.0943,
+      "AllocatedBytesOnCurrentThread": 12276616
+    },
+    "ManualRouteCalculation": {
+      "ElapsedMs": 27.1435,
+      "AllocatedBytesOnCurrentThread": 11312840
+    },
+    "ProjectionReplace": {
+      "ElapsedMs": 29.4707,
+      "AllocatedBytesOnCurrentThread": 3729480
+    },
+    "Scope": "First engine/projection invocations after fixture preparation, includes relevant JIT; excludes process startup/build/restore"
+  },
+  "Cycles": 30,
+  "PercentileMethod": "Nearest rank: sorted[ceil(0.95 * n) - 1]; 30 post-first-invocation samples; no forced GC",
+  "Summary": {
+    "CandidateCalculation": {
+      "MinimumMs": 10.7712,
+      "MedianMs": 16.52115,
+      "P95Ms": 26.6136,
+      "MaximumMs": 41.8698,
+      "MeanMs": 18.068596666666668
+    },
+    "ManualRouteCalculation": {
+      "MinimumMs": 7.4422,
+      "MedianMs": 20.8322,
+      "P95Ms": 39.8775,
+      "MaximumMs": 44.7525,
+      "MeanMs": 22.31959
+    },
+    "ProjectionReplace": {
+      "MinimumMs": 2.5455,
+      "MedianMs": 4.4809,
+      "P95Ms": 14.6725,
+      "MaximumMs": 15.1235,
+      "MeanMs": 5.898963333333333
+    },
+    "ProjectionSort": {
+      "MinimumMs": 19.9703,
+      "MedianMs": 22.1022,
+      "P95Ms": 61.4187,
+      "MaximumMs": 76.1762,
+      "MeanMs": 28.686993333333337
+    },
+    "CombinedCycle": {
+      "MinimumMs": 49.5455,
+      "MedianMs": 62.15445,
+      "P95Ms": 124.4285,
+      "MaximumMs": 158.8632,
+      "MeanMs": 74.98139333333332
+    }
+  },
+  "MemoryBeforeCycles": {
+    "WorkingSetBytes": 75022336,
+    "PrivateBytes": 0,
+    "ManagedHeapBytesWithoutCollection": 38652008
+  },
+  "MemoryAfterCycles": {
+    "WorkingSetBytes": 90210304,
+    "PrivateBytes": 0,
+    "ManagedHeapBytesWithoutCollection": 86076192
+  },
+  "GcCollectionCountBefore": [
+    6,
+    3,
+    1
+  ],
+  "GcCollectionCountAfter": [
+    151,
+    61,
+    27
+  ],
+  "Idle": {
+    "WallMs": 2063.4561,
+    "ProcessCpuMs": 0.156,
+    "PercentOfOneLogicalCore": 0.0075601317614656304,
+    "Scope": "Two-second sleeping console process, no UI/rendering/provider activity; not overlay idle CPU"
+  },
+  "Limitations": [
+    "No window, rendering, GPU, network, SQLite, game, or Windows platform adapter in this console process.",
+    "Process WorkingSet64 and PrivateMemorySize64 are current macOS runtime counters, not Windows private working set or commit gates.",
+    "Memory snapshots are not peaks or post-GC retained size; no GC.Collect, no forced full collection.",
+    "Concurrent development-host load and tiered JIT/GC can affect 30-sample timing; this is not a controlled hardware comparison.",
+    "Production projections with attached UI observers can cost more; headless virtualization tests are a separate check."
+  ],
+  "Samples": [
+    {
+      "Cycle": 1,
+      "CandidateCalculation": {
+        "ElapsedMs": 21.4989,
+        "AllocatedBytesOnCurrentThread": 12214696
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 30.3486,
+        "AllocatedBytesOnCurrentThread": 11312192
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 13.6677,
+        "AllocatedBytesOnCurrentThread": 2586520
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 41.4724,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 106.9955
+    },
+    {
+      "Cycle": 2,
+      "CandidateCalculation": {
+        "ElapsedMs": 20.8724,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 21.6056,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 8.7607,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 41.788,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 93.0353
+    },
+    {
+      "Cycle": 3,
+      "CandidateCalculation": {
+        "ElapsedMs": 18.973,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 31.7341,
+        "AllocatedBytesOnCurrentThread": 11312128
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 6.9936,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 41.5051,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 99.2135
+    },
+    {
+      "Cycle": 4,
+      "CandidateCalculation": {
+        "ElapsedMs": 24.5047,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 29.7838,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 8.709,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 61.4187,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 124.4285
+    },
+    {
+      "Cycle": 5,
+      "CandidateCalculation": {
+        "ElapsedMs": 41.8698,
+        "AllocatedBytesOnCurrentThread": 12208624
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 25.681,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 15.1235,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 76.1762,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 158.8632
+    },
+    {
+      "Cycle": 6,
+      "CandidateCalculation": {
+        "ElapsedMs": 22.6807,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 39.8775,
+        "AllocatedBytesOnCurrentThread": 11312128
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 12.3337,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 32.704,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 107.609
+    },
+    {
+      "Cycle": 7,
+      "CandidateCalculation": {
+        "ElapsedMs": 23.2696,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 27.4075,
+        "AllocatedBytesOnCurrentThread": 11312088
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 9.5782,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 27.6609,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 87.925
+    },
+    {
+      "Cycle": 8,
+      "CandidateCalculation": {
+        "ElapsedMs": 20.3918,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 26.6892,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 14.6725,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 36.971,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 98.7399
+    },
+    {
+      "Cycle": 9,
+      "CandidateCalculation": {
+        "ElapsedMs": 26.6136,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 27.7524,
+        "AllocatedBytesOnCurrentThread": 11312096
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 8.1249,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 30.504,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 93.011
+    },
+    {
+      "Cycle": 10,
+      "CandidateCalculation": {
+        "ElapsedMs": 12.1528,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 18.5488,
+        "AllocatedBytesOnCurrentThread": 11312144
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.7737,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 21.1006,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 54.5841
+    },
+    {
+      "Cycle": 11,
+      "CandidateCalculation": {
+        "ElapsedMs": 10.7712,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 18.7,
+        "AllocatedBytesOnCurrentThread": 11312096
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.5455,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.0088,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 52.043
+    },
+    {
+      "Cycle": 12,
+      "CandidateCalculation": {
+        "ElapsedMs": 11.9966,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 23.369,
+        "AllocatedBytesOnCurrentThread": 11312072
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.8642,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.7033,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 58.9408
+    },
+    {
+      "Cycle": 13,
+      "CandidateCalculation": {
+        "ElapsedMs": 12.7398,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 20.1883,
+        "AllocatedBytesOnCurrentThread": 11312120
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.7986,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.1062,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 55.8368
+    },
+    {
+      "Cycle": 14,
+      "CandidateCalculation": {
+        "ElapsedMs": 11.6871,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 19.1457,
+        "AllocatedBytesOnCurrentThread": 11312088
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 5.1202,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 21.4128,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 57.371
+    },
+    {
+      "Cycle": 15,
+      "CandidateCalculation": {
+        "ElapsedMs": 11.8295,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 18.8101,
+        "AllocatedBytesOnCurrentThread": 11312224
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.6499,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.3595,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 53.6566
+    },
+    {
+      "Cycle": 16,
+      "CandidateCalculation": {
+        "ElapsedMs": 12.1061,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 16.5055,
+        "AllocatedBytesOnCurrentThread": 11312096
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.1376,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.4013,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 52.1571
+    },
+    {
+      "Cycle": 17,
+      "CandidateCalculation": {
+        "ElapsedMs": 11.4023,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 18.2507,
+        "AllocatedBytesOnCurrentThread": 11312112
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.3734,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 27.1623,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 60.1931
+    },
+    {
+      "Cycle": 18,
+      "CandidateCalculation": {
+        "ElapsedMs": 16.3204,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 44.7525,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 6.4781,
+        "AllocatedBytesOnCurrentThread": 2585768
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 22.1147,
+        "AllocatedBytesOnCurrentThread": 739024
+      },
+      "TotalMs": 89.6802
+    },
+    {
+      "Cycle": 19,
+      "CandidateCalculation": {
+        "ElapsedMs": 12.4261,
+        "AllocatedBytesOnCurrentThread": 12208504
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 16.6413,
+        "AllocatedBytesOnCurrentThread": 11312056
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 4.1334,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 23.928,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 57.1363
+    },
+    {
+      "Cycle": 20,
+      "CandidateCalculation": {
+        "ElapsedMs": 11.7515,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 16.6795,
+        "AllocatedBytesOnCurrentThread": 11312064
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.9453,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 19.9703,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 51.3488
+    },
+    {
+      "Cycle": 21,
+      "CandidateCalculation": {
+        "ElapsedMs": 15.193,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 20.7038,
+        "AllocatedBytesOnCurrentThread": 11312040
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 2.8211,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 22.0897,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 60.809
+    },
+    {
+      "Cycle": 22,
+      "CandidateCalculation": {
+        "ElapsedMs": 15.1833,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 17.7735,
+        "AllocatedBytesOnCurrentThread": 11312080
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 5.5682,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.9904,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 59.5182
+    },
+    {
+      "Cycle": 23,
+      "CandidateCalculation": {
+        "ElapsedMs": 20.8266,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 19.9749,
+        "AllocatedBytesOnCurrentThread": 11312048
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 5.0877,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 21.615,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 67.5077
+    },
+    {
+      "Cycle": 24,
+      "CandidateCalculation": {
+        "ElapsedMs": 23.4893,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 21.5653,
+        "AllocatedBytesOnCurrentThread": 11312128
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 4.8883,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 27.1868,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 77.1347
+    },
+    {
+      "Cycle": 25,
+      "CandidateCalculation": {
+        "ElapsedMs": 18.3472,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 27.9504,
+        "AllocatedBytesOnCurrentThread": 11312024
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.5762,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 29.7363,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 79.6124
+    },
+    {
+      "Cycle": 26,
+      "CandidateCalculation": {
+        "ElapsedMs": 15.9338,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 20.9606,
+        "AllocatedBytesOnCurrentThread": 11312024
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.0358,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.6864,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 60.619
+    },
+    {
+      "Cycle": 27,
+      "CandidateCalculation": {
+        "ElapsedMs": 25.3685,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 9.0982,
+        "AllocatedBytesOnCurrentThread": 11312024
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.1404,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 27.3526,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 64.9625
+    },
+    {
+      "Cycle": 28,
+      "CandidateCalculation": {
+        "ElapsedMs": 16.7219,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 23.2148,
+        "AllocatedBytesOnCurrentThread": 11312128
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 3.1057,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 20.455,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 63.4999
+    },
+    {
+      "Cycle": 29,
+      "CandidateCalculation": {
+        "ElapsedMs": 14.613,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 8.4329,
+        "AllocatedBytesOnCurrentThread": 11312024
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 4.495,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 22.0017,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 49.5455
+    },
+    {
+      "Cycle": 30,
+      "CandidateCalculation": {
+        "ElapsedMs": 20.5234,
+        "AllocatedBytesOnCurrentThread": 12208464
+      },
+      "ManualRouteCalculation": {
+        "ElapsedMs": 7.4422,
+        "AllocatedBytesOnCurrentThread": 11312024
+      },
+      "ProjectionReplace": {
+        "ElapsedMs": 4.4668,
+        "AllocatedBytesOnCurrentThread": 2585728
+      },
+      "ProjectionSort": {
+        "ElapsedMs": 21.0278,
+        "AllocatedBytesOnCurrentThread": 738984
+      },
+      "TotalMs": 53.4642
+    }
+  ]
+}

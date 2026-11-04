@@ -1,0 +1,303 @@
+
+=== RED-1 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo
+  Определение проектов для восстановления...
+  Восстановлен <repository>/src/FlipOverlay.Core/FlipOverlay.Core.csproj (за 32 мс).
+  Восстановлен <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj (за 101 мс).
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.12]     FlipOverlay.Core.Tests.EngineTests.Ratio_executes_only_whole_batches [FAIL]
+  Не пройден FlipOverlay.Core.Tests.EngineTests.Ratio_executes_only_whole_batches [3 ms]
+  Сообщение об ошибке:
+   System.NotImplementedException : The method or operation is not implemented.
+  Трассировка стека:
+     at FlipOverlay.Core.BatchRate.Fill(Int64 available) in <repository>/src/FlipOverlay.Core/Domain.cs:line 6
+   at FlipOverlay.Core.Tests.EngineTests.Ratio_executes_only_whole_batches() in <repository>/tests/FlipOverlay.Core.Tests/EngineTests.cs:line 11
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Не пройден!: не пройдено     1, пройдено     0, пропущено     0, всего     1, длительность 9 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== RED-2 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.13]     FlipOverlay.Core.Tests.RouteTests.Two_leg_route_uses_integer_batches_and_keeps_unvalued_remainders [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Two_leg_route_uses_integer_batches_and_keeps_unvalued_remainders [3 ms]
+  Сообщение об ошибке:
+   System.NotImplementedException : The method or operation is not implemented.
+  Трассировка стека:
+     at FlipOverlay.Core.RouteEngine.Evaluate(RouteRequest request, IReadOnlyList`1 route, DateTimeOffset now) in <repository>/src/FlipOverlay.Core/Routes.cs:line 18
+   at FlipOverlay.Core.Tests.RouteTests.Two_leg_route_uses_integer_batches_and_keeps_unvalued_remainders() in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 17
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Не пройден!: не пройдено     1, пройдено     1, пропущено     0, всего     2, длительность 13 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== GREEN-2 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено     2, пропущено     0, всего     2, длительность 13 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 0
+
+=== RED-3 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.11]     FlipOverlay.Core.Tests.RouteTests.Depth_levels_share_stock_across_repeated_legs [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Depth_levels_share_stock_across_repeated_legs [5 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell/buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 20, Revenue = 180, NetProfit = 160, RoiPercent = 800, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Depth_levels_share_stock_across_repeated_legs() in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 20
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Не пройден!: не пройдено     1, пройдено     2, пропущено     0, всего     3, длительность 15 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== GREEN-3 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено     3, пропущено     0, всего     3, длительность 14 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 0
+
+=== RED-4 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.15]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "unconfirmed") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "league") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "ambiguous-stock") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "old") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "direction") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "one-step") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "five-steps") [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "unconfirmed") [4 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "league") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "ambiguous-stock") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "old") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 11:57:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "direction") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "one-step") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "five-steps") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell/buy/sell/buy, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 88, NetProfit = 77, RoiPercent = 700, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "patch") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "market") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "future") [FAIL]
+[xUnit.net 00:00:00.16]     FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "unknown") [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "patch") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "market") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "future") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(reason: "unknown") [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 11, Revenue = 22, NetProfit = 11, RoiPercent = 100, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Ineligible_observations_never_enter_manual_results(String reason) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 51
+   at InvokeStub_RouteTests.Ineligible_observations_never_enter_manual_results(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+Не пройден!: не пройдено    11, пройдено     4, пропущено     0, всего    15, длительность 24 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== GREEN-4 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено    15, пропущено     0, всего    15, длительность 18 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 0
+
+=== RED-5 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+<repository>/src/FlipOverlay.Core/Routes.cs(15,49): warning CS9113: Параметр "goldModel" не прочитан. [<repository>/src/FlipOverlay.Core/FlipOverlay.Core.csproj]
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.14]     FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: 2, expected: 12) [FAIL]
+[xUnit.net 00:00:00.14]     FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: 0, expected: 0) [FAIL]
+[xUnit.net 00:00:00.14]     FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: null, expected: null) [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: 2, expected: 12) [8 ms]
+  Сообщение об ошибке:
+   Assert.Equal() Failure: Values differ
+Expected: 12
+Actual:   null
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(Nullable`1 rate, Nullable`1 expected) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 29
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: 0, expected: 0) [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   null
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(Nullable`1 rate, Nullable`1 expected) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 29
+   at InvokeStub_RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(rate: null, expected: null) [< 1 ms]
+  Сообщение об ошибке:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   RouteResult { Id = buy/sell, Steps = System.Collections.Generic.List`1[FlipOverlay.Core.RouteStep], CapitalRequired = 1, Revenue = 4, NetProfit = 3, RoiPercent = 300, Remainders = System.Collections.Generic.Dictionary`2[System.String,System.Int64], Gold = , ProfitPerThousandGold = , OldestObservation = 01.01.2026 12:00:00 +00:00, Quality = Manual — verify in game }
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(Nullable`1 rate, Nullable`1 expected) in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 33
+   at InvokeStub_RouteTests.Gold_is_charged_on_both_received_legs_and_unknown_is_not_zero(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+Не пройден!: не пройдено     3, пройдено    15, пропущено     0, всего    18, длительность 27 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== GREEN-5 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено    18, пропущено     0, всего    18, длительность 23 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 0
+
+=== RED-6 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+[xUnit.net 00:00:00.13]     FlipOverlay.Core.Tests.RouteTests.Decimal_fees_on_every_leg_are_reserved_in_capital [FAIL]
+  Не пройден FlipOverlay.Core.Tests.RouteTests.Decimal_fees_on_every_leg_are_reserved_in_capital [2 ms]
+  Сообщение об ошибке:
+   Assert.Equal() Failure: Values differ
+Expected: 8,25
+Actual:   6
+  Трассировка стека:
+     at FlipOverlay.Core.Tests.RouteTests.Decimal_fees_on_every_leg_are_reserved_in_capital() in <repository>/tests/FlipOverlay.Core.Tests/RouteTests.cs:line 20
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Не пройден!: не пройдено     1, пройдено    18, пропущено     0, всего    19, длительность 24 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 1
+
+=== GREEN-6 ===
+<dotnet-sdk-directory>/dotnet test <repository>/tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj -c Release --nologo --no-restore
+  FlipOverlay.Core -> <repository>/src/FlipOverlay.Core/bin/Release/net10.0/FlipOverlay.Core.dll
+  FlipOverlay.Core.Tests -> <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll
+Тестовый запуск для <repository>/tests/FlipOverlay.Core.Tests/bin/Release/net10.0/FlipOverlay.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено    19, пропущено     0, всего    19, длительность 57 ms. - FlipOverlay.Core.Tests.dll (net10.0)
+
+Exit: 0

@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+artifacts/
+user-data/
+.vs/
+.DS_Store
+*.user
+# Research snapshots are local evidence, not licensed release assets.
+docs/recipe-evidence/*.body

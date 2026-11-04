@@ -1,0 +1,15 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=query&prop=revisions&titles=Yeena%7CJeweller%27s_Orb%7COrb_of_Fusing%7COrb_of_Scouring%7COrb_of_Regret%7CVendor&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=query&prop=revisions&titles=Yeena%7CJeweller%27s_Orb%7COrb_of_Fusing%7COrb_of_Scouring%7COrb_of_Regret%7CVendor&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&format=json",
+  "checkedAt": "2026-11-04T08:40:58.794691+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:40:59 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "recipe-pages.body",
+  "sha256": "320bc18360579e57a695b33c113eb43a3428258fad79b9ad836c11c32ff5730d",
+  "byteLength": 43130
+}

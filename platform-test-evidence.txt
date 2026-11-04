@@ -1,0 +1,8 @@
+RED 1 — missing companion contracts
+Определение проектов для восстановления...
+  Восстановлен <repository>/src/FlipOverlay.Platform.Windows/FlipOverlay.Platform.Windows.csproj (за 38 мс).
+  Восстановлен <repository>/src/FlipOverlay.Platform.Abstractions/FlipOverlay.Platform.Abstractions.csproj (за 36 мс).
+  Восстановлен <repository>/tests/FlipOverlay.Platform.Tests/FlipOverlay.Platform.Tests.csproj (за 719 мс).
+  FlipOverlay.Platform.Abstractions -> <repository>/src/FlipOverlay.Platform.Abstractions/bin/Release/net10.0/FlipOverlay.Platform.Abstractions.dll
+  FlipOverlay.Platform.Windows -> <repository>/src/FlipOverlay.Platform.Windows/bin/Release/net10.0/FlipOverlay.Platform.Windows.dll
+<repository>/tests/FlipOverlay.Platform.Tests/CompanionTests.cs(1,28): error CS0234: Тип или имя пространства имен "Abstractions" не существует в пространстве имен "FlipOverlay.Platform" (возможно, отсутствует ссылка на сборку). [<repository>/tests/FlipOverlay.Platform.Tests/FlipOverlay.Platform.Tests.csproj]

@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FlipOverlay.App/FlipOverlay.App.csproj" />
+    <Project Path="src/FlipOverlay.Core/FlipOverlay.Core.csproj" />
+    <Project Path="src/FlipOverlay.Infrastructure/FlipOverlay.Infrastructure.csproj" />
+    <Project Path="src/FlipOverlay.Platform.Abstractions/FlipOverlay.Platform.Abstractions.csproj" />
+    <Project Path="src/FlipOverlay.Platform.Windows/FlipOverlay.Platform.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FlipOverlay.App.Tests/FlipOverlay.App.Tests.csproj" />
+    <Project Path="tests/FlipOverlay.Core.Tests/FlipOverlay.Core.Tests.csproj" />
+    <Project Path="tests/FlipOverlay.Infrastructure.Tests/FlipOverlay.Infrastructure.Tests.csproj" />
+    <Project Path="tests/FlipOverlay.Platform.Tests/FlipOverlay.Platform.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/" />
+  <Folder Name="/tools/Diagnostics/">
+    <Project Path="tools/Diagnostics/FlipOverlay.Diagnostics.csproj" />
+  </Folder>
+</Solution>

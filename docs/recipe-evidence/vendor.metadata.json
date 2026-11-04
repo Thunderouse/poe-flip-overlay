@@ -1,0 +1,16 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor&prop=wikitext&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor&prop=wikitext&format=json",
+  "checkedAt": "2026-11-04T08:40:46.921640+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:40:48 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": "10395",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "vendor.body",
+  "sha256": "3144054e3913db2b8c1cce5add4f8c4b9bab24ac54f4c60b605f44381d987d44",
+  "byteLength": 10395
+}

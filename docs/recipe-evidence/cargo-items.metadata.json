@@ -1,0 +1,16 @@
+{
+  "requestedUrl": "https://www.poewiki.net/w/api.php?action=cargoquery&tables=items&fields=name&where=name+IN+%28%22Jeweller%27s+Orb%22%2C%22Orb+of+Fusing%22%2C%22Orb+of+Scouring%22%2C%22Orb+of+Regret%22%29&limit=10&format=json",
+  "responseUrl": "https://www.poewiki.net/w/api.php?action=cargoquery&tables=items&fields=name&where=name+IN+%28%22Jeweller%27s+Orb%22%2C%22Orb+of+Fusing%22%2C%22Orb+of+Scouring%22%2C%22Orb+of+Regret%22%29&limit=10&format=json",
+  "checkedAt": "2026-11-04T08:41:27.654044+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Wed, 04 Nov 2026 08:41:28 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": "164",
+    "Age": "0",
+    "Cache-Control": "private, must-revalidate, max-age=0"
+  },
+  "bodyFile": "cargo-items.body",
+  "sha256": "6a871de2748c89acd4dcb788ecf5cec5bb7c2a3213ed150f3cbcd0d71eda4cb7",
+  "byteLength": 164
+}

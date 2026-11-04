@@ -1,0 +1,122 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:FlipOverlay.App" x:Class="FlipOverlay.App.MainWindow"
+        x:DataType="local:WorkspaceViewModel" Classes="workspace" Title="PoE Flip Overlay · Candidates / Manual"
+        Width="1080" Height="730" MinWidth="730" MinHeight="490" WindowStartupLocation="CenterScreen">
+  <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="12" RowSpacing="8">
+    <Border Classes="panel" Grid.Row="0">
+      <StackPanel Spacing="5">
+        <TextBlock Classes="title" Text="PoE 1 · Opportunities" />
+        <TextBlock Text="Candidates are estimates. Manual observations are not live orders. Verify in game before trading." TextWrapping="Wrap" />
+        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <TextBlock Text="League" Margin="0,5,6,0" />
+          <ComboBox Width="160" ItemsSource="{Binding Leagues}" SelectedItem="{Binding SelectedLeague}" Margin="0,0,12,0" />
+          <TextBlock Text="Mode" Margin="0,5,6,0" />
+          <ComboBox Width="125" ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" Margin="0,0,12,0" />
+          <TextBlock Text="Market: " Margin="0,5,2,0" /><TextBlock Text="{Binding Market}" Margin="0,5,12,0" />
+          <Button Content="Refresh now" Command="{Binding RefreshCommand}" />
+          <CheckBox Content="Pause background refresh" IsChecked="{Binding PauseRefresh}" Margin="8,4,0,0" />
+        </WrapPanel>
+        <TextBlock Text="{Binding Freshness}" TextWrapping="Wrap" FontSize="11" />
+        <WrapPanel>
+          <TextBlock Text="Capital currency" Margin="0,5,5,0" />
+          <TextBox Text="{Binding SettlementCurrency}" Width="90" Margin="0,0,8,0" />
+          <TextBlock Text="Capital budget" Margin="0,5,5,0" />
+          <TextBox Text="{Binding CapitalBudget}" Width="90" Margin="0,0,8,0" />
+          <TextBlock Text="Max gold (blank = no limit)" Margin="0,5,5,0" />
+          <TextBox Text="{Binding MaximumGold}" Width="85" Margin="0,0,8,0" />
+          <TextBlock Text="Max age (seconds)" Margin="0,5,5,0" />
+          <TextBox Text="{Binding MaximumAgeSeconds}" Width="65" />
+        </WrapPanel>
+      </StackPanel>
+    </Border>
+    <Border Classes="panel" Grid.Row="1">
+      <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+        <TextBlock Text="View" Margin="0,5,6,0" />
+        <ToggleSwitch Content="List (off = Table)" IsChecked="{Binding ListMode}" Margin="0,0,16,0" />
+        <TextBlock Text="Sort" Margin="0,5,6,0" />
+        <ComboBox Width="170" ItemsSource="{Binding SortMetrics}" SelectedItem="{Binding SortMetric}" Margin="0,0,8,0" />
+        <CheckBox Content="Descending" IsChecked="{Binding Descending}" Margin="0,4,14,0" />
+        <Button Content="Most profit" Click="MostProfit_Click" Margin="0,0,4,0" />
+        <Button Content="Least gold" Click="LeastGold_Click" Margin="0,0,4,0" />
+        <Button Content="Best profit/gold" Click="BestRatio_Click" />
+      </WrapPanel>
+    </Border>
+    <Grid Grid.Row="2" MinHeight="150">
+      <TableView x:Name="ResultsTable" IsVisible="{Binding TableMode}" ItemsSource="{Binding Projection.Rows}"
+                 SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TableView.Columns>
+          <TableViewColumn x:DataType="local:ResultRow" Header="Route" Binding="{CompiledBinding Route}" Width="180" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Net profit" Binding="{CompiledBinding Profit}" Width="105" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="ROI" Binding="{CompiledBinding Roi}" Width="70" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Gold" Binding="{CompiledBinding Gold}" Width="110" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Profit/1k gold" Binding="{CompiledBinding ProfitPerThousandGold}" Width="130" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Capital" Binding="{CompiledBinding Capital}" Width="90" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Depth" Binding="{CompiledBinding Depth}" Width="85" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Data age" Binding="{CompiledBinding Age}" Width="100" />
+          <TableViewColumn x:DataType="local:ResultRow" Header="Source / quality" Binding="{CompiledBinding Source}" Width="210" />
+        </TableView.Columns>
+      </TableView>
+      <ListBox x:Name="ResultsList" IsVisible="{Binding ListMode}" ItemsSource="{Binding Projection.Rows}"
+               SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel /></ItemsPanelTemplate></ListBox.ItemsPanel>
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="local:ResultRow">
+            <Border Classes="panel" Margin="2" Padding="6">
+              <StackPanel Spacing="3">
+                <TextBlock Text="{Binding Route}" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" FontSize="11" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </Grid>
+    <Border Classes="panel" Grid.Row="3">
+      <StackPanel Spacing="4">
+        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+        <TextBlock Text="Results limited to 5,000 rows; more results were truncated." IsVisible="{Binding Projection.Truncated}" />
+        <TextBlock Text="New results available — release the hold to update." IsVisible="{Binding Projection.HasPending}" />
+        <TextBlock Text="Selected route details" FontWeight="SemiBold" />
+        <TextBlock Text="{Binding Projection.Selected.Details, FallbackValue='Select a route to inspect its steps and assumptions.'}" TextWrapping="Wrap" MaxHeight="55" />
+      </StackPanel>
+    </Border>
+    <Expander Grid.Row="4" Header="Manual observation · Export · Settings" IsExpanded="False">
+      <ScrollViewer MaxHeight="230">
+        <StackPanel Spacing="6" Margin="6">
+          <TextBlock Text="Enter a directional exchange observed by you. Unknown time or gold stays Unknown; one leg never proves a round trip." TextWrapping="Wrap" />
+          <WrapPanel>
+            <TextBox PlaceholderText="League ID" Text="{Binding Manual.LeagueId}" Width="125" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Give currency ID" Text="{Binding Manual.GiveCurrency}" Width="125" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Give quantity" Text="{Binding Manual.GiveQuantity}" Width="105" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Receive currency ID" Text="{Binding Manual.ReceiveCurrency}" Width="130" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Receive quantity" Text="{Binding Manual.ReceiveQuantity}" Width="110" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Available receive quantity (optional)" Text="{Binding Manual.AvailableQuantity}" Width="190" Margin="0,0,5,5" />
+            <TextBox PlaceholderText="Gold per whole lot (optional)" Text="{Binding Manual.Gold}" Width="170" Margin="0,0,5,5" />
+          </WrapPanel>
+          <WrapPanel>
+            <TextBox PlaceholderText="Observed ISO time with offset" Text="{Binding Manual.Timestamp}" Width="220" Margin="0,0,8,0" />
+            <CheckBox Content="Timestamp unknown" IsChecked="{Binding Manual.TimestampUnknown}" Margin="0,4,8,0" />
+            <Button Content="Review observation" Command="{Binding ReviewManualCommand}" Margin="0,0,8,0" />
+            <Button Content="Confirm and save" Command="{Binding ConfirmManualCommand}" IsEnabled="{Binding ConfirmationReady}" />
+          </WrapPanel>
+          <TextBlock Text="User-verified recipe catalog (optional)" FontWeight="SemiBold" />
+          <TextBlock Text="No bundled recipe is assumed current. Paste a versioned JSON catalog with exact poe.ninja IDs; enter the patch you checked. See docs/USER-RECIPES.md. Estimates remain unverified market opportunities." TextWrapping="Wrap" />
+          <TextBox Text="{Binding CatalogJson}" AcceptsReturn="True" TextWrapping="Wrap" Height="90" PlaceholderText="Versioned recipe catalog JSON" />
+          <WrapPanel>
+            <TextBox Text="{Binding CatalogPatch}" PlaceholderText="Exact verified patch" Width="150" Margin="0,0,8,0" />
+            <CheckBox Content="I verified these recipes and conditions in this patch" IsChecked="{Binding CatalogConfirmed}" Margin="0,0,8,0" />
+            <Button Content="Import confirmed catalog" Command="{Binding ImportCatalogCommand}" />
+          </WrapPanel>
+          <TextBlock Text="{Binding Confirmation}" TextWrapping="Wrap" />
+          <WrapPanel>
+            <TextBox PlaceholderText="Explicit CSV output path" Text="{Binding ExportPath}" Width="300" Margin="0,0,8,0" />
+            <Button Content="Export visible rows" Command="{Binding ExportCommand}" Margin="0,0,16,0" />
+            <TextBlock Text="Opacity" Margin="0,4,5,0" />
+            <Slider Minimum="0.4" Maximum="1" Value="{Binding WindowOpacity}" Width="100" Margin="0,0,8,0" />
+            <Button Content="Save settings" Command="{Binding SaveSettingsCommand}" />
+          </WrapPanel>
+        </StackPanel>
+      </ScrollViewer>
+    </Expander>
+  </Grid>
+</Window>

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://www.poewiki.net/w/api.php?action=parse&page=Path_of_Exile_Wiki%3AData_query_API&prop=wikitext&format=json",
+      "title": "api-docs",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 2,
+      "url": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor_recipe_system&prop=wikitext&format=json",
+      "title": "vendor-recipes",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 3,
+      "url": "https://www.poewiki.net/w/api.php?action=parse&page=Vendor&prop=wikitext&format=json",
+      "title": "vendor",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 4,
+      "url": "https://www.poewiki.net/w/api.php?action=parse&page=Path_of_Exile_Wiki%3ACopyrights&prop=wikitext&format=json",
+      "title": "copyrights",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 5,
+      "url": "https://www.poewiki.net/w/api.php?action=query&prop=revisions&titles=Yeena%7CJeweller%27s_Orb%7COrb_of_Fusing%7COrb_of_Scouring%7COrb_of_Regret%7CVendor&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&format=json",
+      "title": "recipe-pages",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 6,
+      "url": "https://www.poewiki.net/w/api.php?action=help&modules=cargoquery%7Cparse%7Cquery%2Brevisions&format=json",
+      "title": "api-help",
+      "accessed": "2026-11-04"
+    },
+    {
+      "id": 7,
+      "url": "https://www.poewiki.net/w/api.php?action=cargoquery&tables=items&fields=name&where=name+IN+%28%22Jeweller%27s+Orb%22%2C%22Orb+of+Fusing%22%2C%22Orb+of+Scouring%22%2C%22Orb+of+Regret%22%29&limit=10&format=json",
+      "title": "cargo-items",
+      "accessed": "2026-11-04"
+    }
+  ]
+}
