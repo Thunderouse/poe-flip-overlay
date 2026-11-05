@@ -14,6 +14,7 @@
 [Setup]
 AppId={{D0B67792-242D-42D7-AE76-092A20124CE8}
 AppName=PoE Flip Overlay
+SetupIconFile=..\src\FlipOverlay.App\Assets\app.ico
 AppVersion={#AppVersion}
 VersionInfoVersion={#NumericVersion}
 AppPublisher=PoE Flip Overlay contributors

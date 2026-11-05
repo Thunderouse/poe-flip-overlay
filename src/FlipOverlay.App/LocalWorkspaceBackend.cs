@@ -49,7 +49,7 @@ public sealed class LocalWorkspaceBackend : IWorkspaceBackend, IRecipeWorkspaceB
     }
     public async Task<WorkspaceSnapshot> RefreshAsync(WorkspaceRequest request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.LeagueId)) return new([], "No league selected; no market data requested.");
+        if (string.IsNullOrWhiteSpace(request.LeagueId)) return new([], "No league selected; no market data requested.", DataState: WorkspaceDataState.Unavailable);
         if (request.CapitalBudget <= 0 || !double.IsFinite(request.MaximumAgeSeconds) || request.MaximumAgeSeconds <= 0 || request.MaximumAgeSeconds > 86400 || request.MaximumGold is < 0)
             throw new ArgumentException("Enter positive capital and a maximum age of 1–86400 seconds, and optional non-negative gold.");
         if (request.Mode == WorkspaceMode.Observed) return await Task.Run(() => ReadManual(request), cancellationToken);
@@ -97,8 +97,14 @@ public sealed class LocalWorkspaceBackend : IWorkspaceBackend, IRecipeWorkspaceB
             if (cadenceFloor <= time.GetUtcNow()) cadenceFloor = time.GetUtcNow().AddMinutes(15);
             if (nextRefresh is null || nextRefresh < cadenceFloor) nextRefresh = cadenceFloor;
         }
+        var state = snapshot.Status switch
+        {
+            FetchStatus.Success or FetchStatus.Cached or FetchStatus.NotModified => WorkspaceDataState.Ready,
+            FetchStatus.RateLimited or FetchStatus.Throttled => WorkspaceDataState.Stale,
+            _ => WorkspaceDataState.Error
+        };
         return new(candidates, status, snapshot.SourceId, null, snapshot.FetchedAt, nextRefresh,
-            "Provider documentation: approximately 15 minutes; source observation age unknown", "NPC Currency Exchange — aggregate analytics");
+            "Provider documentation: approximately 15 minutes; source observation age unknown", "NPC Currency Exchange — aggregate analytics", state);
     }
     public async Task ImportCatalogAsync(string json, string expectedPatch, bool confirmedInGame, CancellationToken cancellationToken)
     {

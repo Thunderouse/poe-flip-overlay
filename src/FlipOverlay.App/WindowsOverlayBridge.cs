@@ -119,14 +119,14 @@ public sealed class WindowsOverlayBridge : IDisposable
         finally { syncingMode = false; }
     }
 
-    private string ModeText() => GetIsInteractive(window) ? "Interactive" : "Passive / click-through";
+    private string ModeText() => GetIsInteractive(window) ? "Interactive" : "Click-through";
     private void UpdateStatus()
     {
         if (bindings is null) return;
         window.SetValue(StatusProperty, $"{ModeText()} · " +
-            $"Show/hide: {Describe(bindings.ToggleVisibility)} · Mouse input: {Describe(bindings.ToggleInteractive)} · Refresh: {Describe(bindings.Refresh)}.");
+            $"Edit: {Describe(bindings.ToggleInteractive)} · Show/hide: {Describe(bindings.ToggleVisibility)} · Refresh: {Describe(bindings.Refresh)}.");
     }
-    private static string Describe(HotkeyGesture gesture) => $"{gesture.Modifiers}+{gesture.Key}";
+    private static string Describe(HotkeyGesture gesture) => $"{gesture.Modifiers.ToString().Replace(", ", "+").Replace("Control", "Ctrl")}+{gesture.Key}";
 
     private void ToggleVisibility()
     {

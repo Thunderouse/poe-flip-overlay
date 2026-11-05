@@ -25,11 +25,18 @@ public partial class MainWindow : Window
             if (e.Property == WindowsOverlayBridge.StatusProperty)
                 controlsHint.Text = WindowsOverlayBridge.GetStatus(this);
             if (e.Property == WindowsOverlayBridge.IsInteractiveProperty)
-                clickThrough.Content = WindowsOverlayBridge.GetIsInteractive(this) ? "Enable click-through" : "Click-through enabled · Use Mouse input shortcut to edit";
+                clickThrough.Content = WindowsOverlayBridge.GetIsInteractive(this) ? "Enable click-through" : "Click-through on";
         };
         Closed += (_, _) => viewModel.Dispose();
     }
     private WorkspaceViewModel ViewModel => (WorkspaceViewModel)DataContext!;
+    public void OpenSettings()
+    {
+        var settings = this.FindControl<Expander>("SettingsExpander")!;
+        settings.IsExpanded = true;
+        settings.BringIntoView();
+    }
+    private void Settings_Click(object? sender, RoutedEventArgs e) => OpenSettings();
     private void ClickThrough_Click(object? sender, RoutedEventArgs e) => WindowsOverlayBridge.SetIsInteractive(this, false);
     private void MostProfit_Click(object? sender, RoutedEventArgs e) { ViewModel.SortMetric = SortMetric.Profit; ViewModel.Descending = true; }
     private void LeastGold_Click(object? sender, RoutedEventArgs e) { ViewModel.SortMetric = SortMetric.Gold; ViewModel.Descending = false; }
