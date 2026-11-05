@@ -1,86 +1,90 @@
 <Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:FlipOverlay.App" x:Class="FlipOverlay.App.MainWindow"
-        x:DataType="local:WorkspaceViewModel" Classes="workspace" Title="PoE Flip Overlay · Candidates / Manual"
-        Width="1080" Height="730" MinWidth="730" MinHeight="490" WindowStartupLocation="CenterScreen">
-  <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="12" RowSpacing="8">
-    <Border Classes="panel" Grid.Row="0">
-      <StackPanel Spacing="5">
-        <TextBlock Classes="title" Text="PoE 1 · Opportunities" />
-        <TextBlock Text="Candidates are estimates. Manual observations are not live orders. Verify in game before trading." TextWrapping="Wrap" />
-        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
-          <TextBlock Text="League" Margin="0,5,6,0" />
-          <ComboBox Width="160" ItemsSource="{Binding Leagues}" SelectedItem="{Binding SelectedLeague}" Margin="0,0,12,0" />
-          <TextBlock Text="Mode" Margin="0,5,6,0" />
-          <ComboBox Width="125" ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" Margin="0,0,12,0" />
-          <TextBlock Text="Market: " Margin="0,5,2,0" /><TextBlock Text="{Binding Market}" Margin="0,5,12,0" />
-          <Button Content="Refresh now" Command="{Binding RefreshCommand}" />
-          <CheckBox Content="Pause background refresh" IsChecked="{Binding PauseRefresh}" Margin="8,4,0,0" />
-        </WrapPanel>
-        <TextBlock Text="{Binding Freshness}" TextWrapping="Wrap" FontSize="11" />
-        <WrapPanel>
-          <TextBlock Text="Capital currency" Margin="0,5,5,0" />
-          <TextBox Text="{Binding SettlementCurrency}" Width="90" Margin="0,0,8,0" />
-          <TextBlock Text="Capital budget" Margin="0,5,5,0" />
-          <TextBox Text="{Binding CapitalBudget}" Width="90" Margin="0,0,8,0" />
-          <TextBlock Text="Max gold (blank = no limit)" Margin="0,5,5,0" />
-          <TextBox Text="{Binding MaximumGold}" Width="85" Margin="0,0,8,0" />
-          <TextBlock Text="Max age (seconds)" Margin="0,5,5,0" />
-          <TextBox Text="{Binding MaximumAgeSeconds}" Width="65" />
-        </WrapPanel>
-      </StackPanel>
-    </Border>
-    <Border Classes="panel" Grid.Row="1">
-      <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
-        <TextBlock Text="View" Margin="0,5,6,0" />
-        <ToggleSwitch Content="List (off = Table)" IsChecked="{Binding ListMode}" Margin="0,0,16,0" />
-        <TextBlock Text="Sort" Margin="0,5,6,0" />
-        <ComboBox Width="170" ItemsSource="{Binding SortMetrics}" SelectedItem="{Binding SortMetric}" Margin="0,0,8,0" />
-        <CheckBox Content="Descending" IsChecked="{Binding Descending}" Margin="0,4,14,0" />
-        <Button Content="Most profit" Click="MostProfit_Click" Margin="0,0,4,0" />
-        <Button Content="Least gold" Click="LeastGold_Click" Margin="0,0,4,0" />
-        <Button Content="Best profit/gold" Click="BestRatio_Click" />
-      </WrapPanel>
-    </Border>
-    <Grid Grid.Row="2" MinHeight="150">
-      <TableView x:Name="ResultsTable" IsVisible="{Binding TableMode}" ItemsSource="{Binding Projection.Rows}"
-                 SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <TableView.Columns>
-          <TableViewColumn x:DataType="local:ResultRow" Header="Route" Binding="{CompiledBinding Route}" Width="180" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Net profit" Binding="{CompiledBinding Profit}" Width="105" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="ROI" Binding="{CompiledBinding Roi}" Width="70" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Gold" Binding="{CompiledBinding Gold}" Width="110" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Profit/1k gold" Binding="{CompiledBinding ProfitPerThousandGold}" Width="130" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Capital" Binding="{CompiledBinding Capital}" Width="90" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Depth" Binding="{CompiledBinding Depth}" Width="85" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Data age" Binding="{CompiledBinding Age}" Width="100" />
-          <TableViewColumn x:DataType="local:ResultRow" Header="Source / quality" Binding="{CompiledBinding Source}" Width="210" />
-        </TableView.Columns>
-      </TableView>
-      <ListBox x:Name="ResultsList" IsVisible="{Binding ListMode}" ItemsSource="{Binding Projection.Rows}"
-               SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <ListBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel /></ItemsPanelTemplate></ListBox.ItemsPanel>
-        <ListBox.ItemTemplate>
-          <DataTemplate x:DataType="local:ResultRow">
-            <Border Classes="panel" Margin="2" Padding="6">
-              <StackPanel Spacing="3">
-                <TextBlock Text="{Binding Route}" FontWeight="SemiBold" />
-                <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" FontSize="11" />
-              </StackPanel>
-            </Border>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+ xmlns:local="using:FlipOverlay.App" x:Class="FlipOverlay.App.MainWindow" x:DataType="local:WorkspaceViewModel"
+ Classes="workspace" Title="POE Flip Overlay" Icon="avares://FlipOverlay.App/Assets/app.ico"
+ Width="1100" Height="740" MinWidth="760" MinHeight="560" WindowStartupLocation="CenterScreen"
+ WindowDecorations="Full" ShowInTaskbar="True" ShowActivated="True" CanResize="True">
+ <Window.Resources>
+  <DataTemplate x:Key="RouteCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Route}" ToolTip.Tip="{Binding Route}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" /></DataTemplate>
+  <DataTemplate x:Key="ProfitCell" x:DataType="local:ResultRow">
+   <Grid ColumnDefinitions="*,20" ColumnSpacing="6" ToolTip.Tip="{Binding Profit}">
+    <TextBlock Text="{Binding ProfitAmount}" Classes="numeric" Classes.positive="{Binding IsPositive}" Classes.negative="{Binding IsNegative}" />
+    <Image Grid.Column="1" Source="{Binding CurrencyIcon}" Width="18" Height="18" ToolTip.Tip="{Binding Unit}" />
+   </Grid>
+  </DataTemplate>
+  <DataTemplate x:Key="RoiCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Roi}" Classes="numeric" ToolTip.Tip="{Binding Roi}" /></DataTemplate>
+  <DataTemplate x:Key="GoldCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Gold}" Classes="numeric" ToolTip.Tip="{Binding Gold}" /></DataTemplate>
+  <DataTemplate x:Key="RatioCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding ProfitPerThousandGold}" Classes="numeric" ToolTip.Tip="{Binding ProfitPerThousandGold}" /></DataTemplate>
+  <DataTemplate x:Key="CapitalCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Capital}" Classes="numeric" ToolTip.Tip="{Binding Unit}" /></DataTemplate>
+  <DataTemplate x:Key="DepthCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Depth}" ToolTip.Tip="{Binding Depth}" TextTrimming="CharacterEllipsis" /></DataTemplate>
+  <DataTemplate x:Key="AgeCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Age}" Classes="numeric" ToolTip.Tip="{Binding Age}" /></DataTemplate>
+  <DataTemplate x:Key="SourceCell" x:DataType="local:ResultRow"><TextBlock Text="{Binding Source}" Classes="muted" ToolTip.Tip="{Binding Source}" TextTrimming="CharacterEllipsis" /></DataTemplate>
+ </Window.Resources>
+ <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="16" RowSpacing="10">
+  <Grid ColumnDefinitions="42,*,Auto" ColumnSpacing="10">
+   <Image Source="avares://FlipOverlay.App/Assets/app.png" Width="40" Height="40" />
+   <StackPanel Grid.Column="1" Spacing="2"><TextBlock Text="POE Flip Overlay" Classes="title" /><TextBlock x:Name="WindowControlsHint" Text="Interactive · Windows controls enabled" Classes="muted" TextTrimming="CharacterEllipsis" /></StackPanel>
+   <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+    <Button x:Name="ClickThroughButton" Content="Enable click-through" Click="ClickThrough_Click" IsEnabled="False" ToolTip.Tip="Pass mouse input to the game. Use the Edit shortcut shown beside the title to restore interaction." />
+    <Button Content="Settings" Click="Settings_Click" ToolTip.Tip="Manual observations, export, recipes and saved settings" />
+   </StackPanel>
+  </Grid>
+  <Border Classes="panel" Grid.Row="1"><StackPanel Spacing="10">
+   <WrapPanel>
+    <TextBlock Text="League" Classes="muted" Margin="0,7,8,0" /><ComboBox Width="150" ItemsSource="{Binding Leagues}" SelectedItem="{Binding SelectedLeague}" Margin="0,0,14,0" />
+    <TextBlock Text="Mode" Classes="muted" Margin="0,7,8,0" /><ComboBox Width="125" ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" Margin="0,0,14,0" />
+    <Button Content="Refresh now" Classes="primary" Command="{Binding RefreshCommand}" Margin="0,0,14,0" /><CheckBox Content="Pause auto-refresh" IsChecked="{Binding PauseRefresh}" MinHeight="30" />
+   </WrapPanel>
+   <WrapPanel>
+    <TextBlock Text="Capital" Classes="muted" Margin="0,7,8,0" /><TextBox Text="{Binding CapitalBudget}" Width="95" Margin="0,0,6,0" ToolTip.Tip="Capital budget" /><TextBox Text="{Binding SettlementCurrency}" Width="82" Margin="0,0,16,0" ToolTip.Tip="Settlement currency ID" />
+    <TextBlock Text="Max gold" Classes="muted" Margin="0,7,8,0" /><TextBox Text="{Binding MaximumGold}" PlaceholderText="No limit" Width="95" Margin="0,0,16,0" />
+    <TextBlock Text="Max age" Classes="muted" Margin="0,7,8,0" /><TextBox Text="{Binding MaximumAgeSeconds}" Width="65" Margin="0,0,6,0" /><TextBlock Text="seconds" Classes="muted" Margin="0,7,0,0" />
+   </WrapPanel>
+  </StackPanel></Border>
+  <Grid Grid.Row="2" RowDefinitions="Auto,Auto,*">
+   <Border Background="#1A2027" Padding="10,8"><WrapPanel>
+    <TextBlock Text="RESULTS" Classes="eyebrow" Margin="0,7,8,0" /><TextBlock Text="{Binding Projection.Rows.Count}" Classes="muted" Margin="0,7,18,0" />
+    <TextBlock Text="Sort" Classes="muted" Margin="0,7,6,0" /><ComboBox Width="135" ItemsSource="{Binding SortMetrics}" SelectedItem="{Binding SortMetric}" Margin="0,0,8,0" />
+    <CheckBox Content="Descending" IsChecked="{Binding Descending}" MinHeight="30" Margin="0,0,10,0" /><TextBlock Text="{Binding SortSummary}" Classes="eyebrow" Margin="0,7,12,0" />
+    <Button Content="Profit" Click="MostProfit_Click" ToolTip.Tip="Highest net profit" Margin="0,0,4,0" /><Button Content="Gold" Click="LeastGold_Click" ToolTip.Tip="Lowest gold requirement" Margin="0,0,4,0" /><Button Content="Profit/gold" Click="BestRatio_Click" ToolTip.Tip="Highest profit per 1,000 gold" Margin="0,0,12,0" />
+    <CheckBox Content="List view" IsChecked="{Binding ListMode}" MinHeight="30" />
+   </WrapPanel></Border>
+   <Border Grid.Row="1" Background="#342C20" Padding="10,7" IsVisible="{Binding ShowStateBanner}"><TextBlock Text="{Binding Status}" Foreground="{StaticResource PanelAccent}" TextWrapping="Wrap" /></Border>
+   <Border Grid.Row="2" BorderBrush="{StaticResource PanelBorder}" BorderThickness="1" Background="#14191F">
+    <Grid MinHeight="150">
+     <TableView x:Name="ResultsTable" IsVisible="{Binding TableMode}" ItemsSource="{Binding Projection.Rows}" SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <TableView.Columns>
+       <TableViewColumn Header="Route" CellTemplate="{StaticResource RouteCell}" Width="240" />
+       <TableViewColumn Header="Net profit" CellTemplate="{StaticResource ProfitCell}" Width="140" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="ROI %" CellTemplate="{StaticResource RoiCell}" Width="90" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="Gold" CellTemplate="{StaticResource GoldCell}" Width="125" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="Profit / 1k gold" CellTemplate="{StaticResource RatioCell}" Width="145" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="Capital" CellTemplate="{StaticResource CapitalCell}" Width="115" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="Depth" CellTemplate="{StaticResource DepthCell}" Width="125" />
+       <TableViewColumn Header="Data age" CellTemplate="{StaticResource AgeCell}" Width="105" HorizontalContentAlignment="Stretch" />
+       <TableViewColumn Header="Source / quality" CellTemplate="{StaticResource SourceCell}" Width="230" />
+      </TableView.Columns>
+     </TableView>
+     <ListBox x:Name="ResultsList" IsVisible="{Binding ListMode}" ItemsSource="{Binding Projection.Rows}" SelectedItem="{Binding Projection.Selected, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <ListBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel /></ItemsPanelTemplate></ListBox.ItemsPanel>
+      <ListBox.ItemTemplate><DataTemplate x:DataType="local:ResultRow"><StackPanel Spacing="4">
+       <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12"><TextBlock Text="{Binding Route}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Route}" /><TextBlock Grid.Column="1" Text="{Binding Profit}" Classes="numeric" Classes.positive="{Binding IsPositive}" Classes.negative="{Binding IsNegative}" /></Grid>
+       <TextBlock Text="{Binding Summary}" Classes="muted" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Summary}" />
+      </StackPanel></DataTemplate></ListBox.ItemTemplate>
+     </ListBox>
+     <StackPanel IsVisible="{Binding ShowEmptyState}" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="440" Margin="24" Spacing="12">
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}" Height="3" Width="100" Foreground="{StaticResource PanelAccent}" />
+      <TextBlock Text="{Binding EmptyTitle}" FontSize="18" FontWeight="SemiBold" TextAlignment="Center" /><TextBlock Text="{Binding EmptyDescription}" Classes="muted" TextWrapping="Wrap" TextAlignment="Center" />
+     </StackPanel>
     </Grid>
-    <Border Classes="panel" Grid.Row="3">
-      <StackPanel Spacing="4">
-        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
-        <TextBlock Text="Results limited to 5,000 rows; more results were truncated." IsVisible="{Binding Projection.Truncated}" />
-        <TextBlock Text="New results available — release the hold to update." IsVisible="{Binding Projection.HasPending}" />
-        <TextBlock Text="Selected route details" FontWeight="SemiBold" />
-        <TextBlock Text="{Binding Projection.Selected.Details, FallbackValue='Select a route to inspect its steps and assumptions.'}" TextWrapping="Wrap" MaxHeight="55" />
-      </StackPanel>
-    </Border>
-    <Expander Grid.Row="4" Header="Manual observation · Export · Settings" IsExpanded="False">
+   </Border>
+  </Grid>
+  <StackPanel Grid.Row="3" Spacing="4">
+   <TextBlock Text="{Binding Status}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Status}" /><TextBlock Text="{Binding Freshness}" Classes="muted" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Freshness}" />
+   <TextBlock Text="{Binding Market}" Classes="muted" /><TextBlock Text="Results limited to 5,000 rows." IsVisible="{Binding Projection.Truncated}" Foreground="{StaticResource PanelAccent}" /><TextBlock Text="New results available — release the hold to update." IsVisible="{Binding Projection.HasPending}" />
+   <Expander Header="Route details"><TextBlock Text="{Binding Projection.Selected.Details, FallbackValue='Select a route to inspect its steps and assumptions.'}" TextWrapping="Wrap" MaxHeight="80" Margin="10" /></Expander>
+  </StackPanel>
+
+  <Expander x:Name="SettingsExpander" Grid.Row="4" Header="Manual observation · Export · Settings" IsExpanded="False">
       <ScrollViewer MaxHeight="230">
         <StackPanel Spacing="6" Margin="6">
           <TextBlock Text="Enter a directional exchange observed by you. Unknown time or gold stays Unknown; one leg never proves a round trip." TextWrapping="Wrap" />

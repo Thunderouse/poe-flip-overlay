@@ -30,6 +30,7 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
         {
             if (e.PropertyName == nameof(Projection.Frozen) && !ticking) Tick();
         };
+        Projection.Rows.CollectionChanged += (_, _) => NotifyPresentation();
     }
     [ObservableProperty] private bool isVisible = true;
     [ObservableProperty] private bool pauseRefresh;
@@ -62,6 +63,31 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
     [ObservableProperty] private string exportPath = "";
     [ObservableProperty] private string catalogJson = "";
     [ObservableProperty] private string catalogPatch = "";
+    [ObservableProperty] private bool isLoading;
+    [ObservableProperty] private bool hasLoaded;
+    [ObservableProperty] private bool hasLoadError;
+    [ObservableProperty] private bool isStale;
+    [ObservableProperty] private bool sourceUnavailable;
+    public bool ShowEmptyState => Projection.Rows.Count == 0;
+    public bool ShowStateBanner => HasLoadError || IsStale;
+    public string EmptyTitle => IsLoading ? "Loading market data" : HasLoadError ? "Could not load data" :
+        SourceUnavailable ? "Data source unavailable" : IsStale ? "No current data" : HasLoaded ? "No matching routes" : "Ready when you are";
+    public string EmptyDescription => IsLoading ? "Fetching the selected source. Existing filters are kept." :
+        HasLoadError || SourceUnavailable || IsStale ? Status : HasLoaded ?
+        "No routes meet the current filters. Adjust the budget or age limit, or add confirmed observations." :
+        "Select a league and refresh. Candidates need a user-confirmed recipe catalog; manual routes need both exchange directions.";
+    public string SortSummary => $"{SortMetric} {(Descending ? "↓" : "↑")}";
+    partial void OnIsLoadingChanged(bool value) => NotifyPresentation();
+    partial void OnHasLoadedChanged(bool value) => NotifyPresentation();
+    partial void OnHasLoadErrorChanged(bool value) => NotifyPresentation();
+    partial void OnIsStaleChanged(bool value) => NotifyPresentation();
+    partial void OnSourceUnavailableChanged(bool value) => NotifyPresentation();
+    partial void OnStatusChanged(string value) => NotifyPresentation();
+    private void NotifyPresentation()
+    {
+        OnPropertyChanged(nameof(ShowEmptyState)); OnPropertyChanged(nameof(ShowStateBanner));
+        OnPropertyChanged(nameof(EmptyTitle)); OnPropertyChanged(nameof(EmptyDescription));
+    }
     [ObservableProperty] private bool catalogConfirmed;
     partial void OnCatalogJsonChanged(string value) => CatalogConfirmed = false;
     partial void OnCatalogPatchChanged(string value) => CatalogConfirmed = false;
@@ -83,17 +109,19 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
     partial void OnListModeChanged(bool value) => OnPropertyChanged(nameof(TableMode));
     partial void OnSelectedLeagueChanged(LeagueDto? value) { ResetContext(); Manual.LeagueId = value?.Id ?? ""; }
     partial void OnModeChanged(WorkspaceMode value) => ResetContext();
-    partial void OnSortMetricChanged(SortMetric value) => Projection.SetSort(value, Descending);
-    partial void OnDescendingChanged(bool value) => Projection.SetSort(SortMetric, value);
+    partial void OnSortMetricChanged(SortMetric value) { Projection.SetSort(value, Descending); OnPropertyChanged(nameof(SortSummary)); }
+    partial void OnDescendingChanged(bool value) { Projection.SetSort(SortMetric, value); OnPropertyChanged(nameof(SortSummary)); }
     private void ResetContext()
     {
         generation++; context.Cancel(); context.Dispose(); context = new();
         latestRows = []; nextRefresh = null; timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+        HasLoaded = false; HasLoadError = false; SourceUnavailable = false; IsStale = false;
         Projection.Frozen = false; Projection.Replace([]); Freshness = "Source: Unknown · Age unknown · Fetched: Unknown · Next refresh: Unknown";
         Status = "Context changed; refresh to load data.";
     }
     public async Task InitializeAsync()
     {
+        IsLoading = true;
         try
         {
             var settings = await backend.LoadSettingsAsync(context.Token);
@@ -107,7 +135,8 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
             foreach (var league in leagues) Leagues.Add(league);
             SelectedLeague = Leagues.FirstOrDefault();
         }
-        catch (Exception e) when (e is not OperationCanceledException) { Status = e.Message; }
+        catch (Exception e) when (e is not OperationCanceledException) { HasLoadError = true; Status = "Initialization failed: " + e.Message; }
+        finally { IsLoading = false; }
     }
     [RelayCommand]
     private Task RefreshAsync() => RefreshCoreAsync(true);
@@ -115,6 +144,7 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
     {
         if (disposed || refreshing) return;
         refreshing = true;
+        IsLoading = true;
         var current = generation; var token = context.Token;
         try
         {
@@ -122,19 +152,25 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
             Status = "Refreshing…";
             var snapshot = await backend.RefreshAsync(request, token);
             if (current != generation || token.IsCancellationRequested) return;
+            HasLoaded = true;
+            HasLoadError = snapshot.DataState == WorkspaceDataState.Error;
+            SourceUnavailable = snapshot.DataState == WorkspaceDataState.Unavailable;
+            IsStale = snapshot.DataState == WorkspaceDataState.Stale;
             displayedMaximumAge = request.MaximumAgeSeconds;
             latestRows = snapshot.Rows.Where(row => Valid(row, time.GetUtcNow())).ToArray();
             nextRefresh = Mode == WorkspaceMode.Candidates ? snapshot.NextRefreshAt : null;
             if (nextRefresh is { } next && next <= time.GetUtcNow()) nextRefresh = time.GetUtcNow().AddSeconds(30);
             nextAge = time.GetUtcNow().AddSeconds(1);
-            Projection.Replace(latestRows); Status = snapshot.Status; Market = snapshot.Market;
+            if (!HasLoadError && !IsStale) Projection.Replace(latestRows);
+            Status = snapshot.Status; Market = snapshot.Market;
             Freshness = $"Source: {snapshot.Source} · Source observation: {Time(snapshot.SourceObservedAt)} · {(snapshot.SourceObservedAt is null ? "Age unknown" : "Age uses source observation, not fetch time")} · Fetched: {Time(snapshot.FetchedAt)} · Next refresh: {Time(snapshot.NextRefreshAt)} · Expected cadence: {snapshot.ExpectedCadence}";
         }
         catch (OperationCanceledException) { }
-        catch (Exception e) { if (current == generation) Status = "Refresh failed: " + e.Message; }
+        catch (Exception e) { if (current == generation) { HasLoadError = true; Status = "Refresh failed: " + e.Message; } }
         finally
         {
             refreshing = false;
+            IsLoading = false;
             if (current == generation && Mode == WorkspaceMode.Candidates && nextRefresh is null)
                 nextRefresh = time.GetUtcNow().AddMinutes(5);
             Schedule();
@@ -166,6 +202,7 @@ public sealed partial class WorkspaceViewModel : ObservableObject, IDisposable
             var now = time.GetUtcNow();
             var previousCount = latestRows.Length;
             latestRows = latestRows.Where(row => Valid(row, now)).ToArray();
+            if (Mode == WorkspaceMode.Observed && latestRows.Length < previousCount) IsStale = true;
             if (Projection.Frozen && latestRows.Length != previousCount) Projection.Replace(latestRows);
             if (Projection.Rows.Any(row => !Valid(row.Data, now)))
             {

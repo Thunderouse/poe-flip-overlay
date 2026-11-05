@@ -22,11 +22,23 @@ public partial class App : Application
             }
             var vm = new WorkspaceViewModel(backend);
             var window = new MainWindow(vm);
-            // Attach before Show; never construct the Windows adapter on other operating systems.
-            var overlay = Program.UiSmoke ? null : WindowsOverlayBridge.Attach(window, vm);
-            if (startupError is not null) vm.Status = startupError;
+            if (startupError is not null) { vm.HasLoadError = true; vm.Status = startupError; }
             desktop.MainWindow = window;
-            desktop.Exit += (_, _) => { overlay?.Dispose(); vm.Dispose(); };
+            TrayController? tray = null;
+            if (OperatingSystem.IsWindows() && !Program.UiSmoke)
+            {
+                try { tray = new TrayController(desktop, window); }
+                catch (Exception e) { vm.Status = "Tray unavailable; closing this window exits. " + e.Message; }
+            }
+            // Register close-to-tray before the adapter's Closing cleanup observes cancellation.
+            // Both are attached before Show; no Windows adapter is constructed on other platforms.
+            var overlay = Program.UiSmoke ? null : WindowsOverlayBridge.Attach(window, vm);
+            Program.Instance?.SetActivationHandler(() => Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                if (tray is not null) tray.ShowForInteraction();
+                else { window.Show(); window.Activate(); }
+            }));
+            desktop.Exit += (_, _) => { tray?.Dispose(); overlay?.Dispose(); vm.Dispose(); };
             window.Opened += async (_, _) =>
             {
                 Program.SmokeOpened = true;

@@ -21,6 +21,7 @@ public static class Program
     }
     public static bool UiSmoke { get; private set; }
     public static bool SmokeOpened { get; internal set; }
+    internal static SingleInstance? Instance { get; private set; }
     [STAThread]
     public static int Main(string[] args)
     {
@@ -28,8 +29,15 @@ public static class Program
         if (args.Contains("--selftest")) return OfflineSelfTest.Run();
         UiSmoke = args.Contains("--ui-smoke"); SmokeOpened = false;
         if (UiSmoke) BackendFactory = () => new UnavailableWorkspaceBackend();
-        var result = BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-        return UiSmoke ? (SmokeOpened ? 0 : 1) : result;
+        using var instance = OperatingSystem.IsWindows() && !UiSmoke ? new SingleInstance() : null;
+        if (instance is { IsPrimary: false }) return 0;
+        Instance = instance;
+        try
+        {
+            var result = BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+            return UiSmoke ? (SmokeOpened ? 0 : 1) : result;
+        }
+        finally { Instance = null; }
     }
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect();
 }

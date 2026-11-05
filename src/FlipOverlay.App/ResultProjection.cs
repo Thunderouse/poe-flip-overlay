@@ -15,8 +15,13 @@ public sealed partial class ResultRow : ObservableObject
     public ResultRow(ResultDto data) => this.data = data;
     public string Id => Data.Id;
     public string Route => Data.Route;
-    public string Profit => Format(Data.Profit) + (Data.Unit.Length > 0 ? " " + Data.Unit : "");
-    public string Roi => Format(Data.Roi);
+    public string ProfitAmount => DisplayNumber(Data.Profit, signed: true);
+    public bool IsPositive => Data.Profit > 0;
+    public bool IsNegative => Data.Profit < 0;
+    public string Unit => Data.Unit;
+    public Avalonia.Media.Imaging.Bitmap? CurrencyIcon => CurrencyArtwork.Get(Data.Unit);
+    public string Profit => ProfitAmount + (Data.Unit.Length > 0 ? " " + Data.Unit : "");
+    public string Roi => Data.Roi is null ? "Unknown" : DisplayNumber(Data.Roi, signed: true) + "%";
     public string Gold => Data.Gold == 0 ? "No gold required" : Format(Data.Gold);
     public string ProfitPerThousandGold => Data.Gold == 0 ? "No gold required" : Format(Data.ProfitPerThousandGold);
     public string Capital => Format(Data.Capital);
@@ -25,8 +30,32 @@ public sealed partial class ResultRow : ObservableObject
     public string Source => Data.Source + " · " + Data.Quality;
     public string Details => Data.Details;
     public string Summary => $"Net {Profit} · ROI {Roi} · Gold {Gold} · Profit/1k {ProfitPerThousandGold} · Capital {Capital} · Depth {Depth} · {Age} · {Source}";
-    private static string Format(decimal? value) => value?.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture) ?? "Unknown";
+    private static string Format(decimal? value) => DisplayNumber(value);
+    public static string DisplayNumber(decimal? value, bool signed = false)
+    {
+        if (value is null) return "Unknown";
+        var format = value != 0 && value is > -.0001m and < .0001m ? "0.###E+0" : "#,0.####";
+        var text = value.Value.ToString(format, System.Globalization.CultureInfo.InvariantCulture);
+        return signed && value > 0 ? "+" + text : text;
+    }
     partial void OnDataChanged(ResultDto value) => OnPropertyChanged(string.Empty);
+}
+
+internal static class CurrencyArtwork
+{
+    private static readonly Lazy<Avalonia.Media.Imaging.Bitmap> Chaos = new(() => Load("chaos"));
+    private static readonly Lazy<Avalonia.Media.Imaging.Bitmap> Divine = new(() => Load("divine"));
+    private static Avalonia.Media.Imaging.Bitmap Load(string name)
+    {
+        using var stream = Avalonia.Platform.AssetLoader.Open(new Uri($"avares://FlipOverlay.App/Assets/{name}.png"));
+        return new Avalonia.Media.Imaging.Bitmap(stream);
+    }
+    public static Avalonia.Media.Imaging.Bitmap? Get(string unit) => unit.ToLowerInvariant() switch
+    {
+        "chaos" or "chaos orb" => Chaos.Value,
+        "divine" or "divine orb" => Divine.Value,
+        _ => null
+    };
 }
 
 public sealed partial class ResultProjection : ObservableObject

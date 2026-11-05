@@ -1,6 +1,8 @@
-# PoE Flip Overlay — beta 0.1
+# PoE Flip Overlay — beta 0.3
 
-C#/.NET 10 + Avalonia beta (`0.1.0-beta.1`) for **PoE1 Candidates and user-confirmed manual observations**. Automatic live NPC exchange scanning is deferred. No game input, OCR, memory access, private endpoints or account cookies.
+C#/.NET 10 + Avalonia beta (`0.1.0-beta.3`) for **PoE1 Candidates and user-confirmed manual observations**. Automatic live NPC exchange scanning is deferred. No game input, OCR, memory access, private endpoints or account cookies.
+
+Starts as a normal interactive window with a title bar and standard Windows controls. Click-through is optional. Closing hides it in the Windows notification area; use the tray menu's Exit command to quit. See [interface and tray behavior](docs/UI-AND-TRAY.md).
 
 **Not production-ready.** Actual Windows game-overlay, installer VM and resource gates are open. There is no verified current recipe database: Candidates require an explicit user-confirmed patch catalog; without it they are empty. All aggregate values remain estimates. No guaranteed fills, profit or ban safety.
 

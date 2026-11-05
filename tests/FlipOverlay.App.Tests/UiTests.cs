@@ -16,6 +16,11 @@ public class UiTests
         using var vm = new WorkspaceViewModel(new UnavailableWorkspaceBackend());
         var window = new MainWindow(vm);
         window.Show();
+        Assert.Equal(WindowDecorations.Full, window.WindowDecorations);
+        Assert.True(window.ShowInTaskbar);
+        Assert.True(window.ShowActivated);
+        Assert.True(window.CanResize);
+        Assert.True(WindowsOverlayBridge.GetIsInteractive(window));
         var table = window.FindControl<TableView>("ResultsTable")!;
         var list = window.FindControl<ListBox>("ResultsList")!;
         Assert.Same(vm.Projection.Rows, table.ItemsSource);

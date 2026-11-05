@@ -14,7 +14,7 @@ namespace FlipOverlay.App.Tests;
 public static class VirtualizationApp
 {
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>()
-        .UseHeadless(new AvaloniaHeadlessPlatformOptions());
+        .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 }
 
 public class VirtualizationTests(ITestOutputHelper output)

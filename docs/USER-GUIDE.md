@@ -23,9 +23,13 @@ dotnet run --project src/FlipOverlay.App -c Release --no-build -- --selftest
 
 For a Windows self-contained build, `tools/build.ps1` uses Inno Setup for a per-user setup and the *same* publish folder for a portable ZIP. `tools/verify.ps1` verifies only ZIP paths, version and offline selftest in a Windows path with Unicode/spaces; it does not replace an in-game/installer VM test. Nothing is published by these scripts.
 
-## Windows overlay controls (native behavior not yet verified)
+## Windows window and overlay controls
 
-Windows startup attempts to register recovery hotkeys **before** enabling passive click-through mode. Defaults:
+Windows starts as an interactive window with a standard title bar, resize borders, taskbar entry and minimize/maximize/close buttons. Drag the title bar to move it. Mouse input works immediately; passive click-through is never enabled automatically, including after restarting the app.
+
+On Windows, the **POE Flip Overlay** notification-area icon remains available while the window is hidden (check Windows' hidden-icons menu too). Left click shows/hides the overlay. The menu has **Show/Hide overlay**, **Settings** (opens the existing settings panel), and **Exit**. Closing the window hides it and explains this once per session; **Exit** fully stops the app. Starting it again brings the existing instance forward. Explorer's icon placement preferences are not changed.
+
+Select **Enable click-through** in the window only when you want mouse input to pass through to the game. The visible status line shows the shortcut that restores mouse input. Recovery hotkeys are registered before this button becomes available. Defaults:
 
 - **Ctrl+Shift+F8** — show/hide the application's own panel.
 - **Ctrl+Shift+F9** — switch interactive / passive click-through.

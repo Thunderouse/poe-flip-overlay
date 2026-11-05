@@ -9,5 +9,6 @@ This document is a reminder to audit and bundle full notices before distributing
 - xUnit 2.9.3 — Apache-2.0, tests only.
 - Microsoft.NET.Test.Sdk 18.11.0 — MIT, tests only.
 - Inno Setup — installer build tooling; check applicable version and terms before distributing the installer.
+- Chaos Orb and Divine Orb currency sprites — Grinding Gear Games artwork; official CDN source URLs and the derived app-icon source are documented in `UI-AND-TRAY.md`.
 
 Currency names, game mechanics and economy data relate to Grinding Gear Games' Path of Exile and its own rights. No copied GGG asset or wiki dataset is approved for public redistribution by this file. The separate PoE Wiki material is CC BY-NC-SA 3.0 for material the wiki can license; GGG rights remain separate. Its research capture is not a packaged runtime catalog. Review dependencies, assets and dataset licensing before any public release.
