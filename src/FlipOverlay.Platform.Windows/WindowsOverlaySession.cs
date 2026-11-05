@@ -2,7 +2,7 @@ using FlipOverlay.Platform.Abstractions;
 
 namespace FlipOverlay.Platform.Windows;
 
-/// <summary>UI-thread session. Registers recovery hotkeys before enabling passive mode.</summary>
+/// <summary>UI-thread session. Starts interactive; registers recovery hotkeys before passive mode is available.</summary>
 public sealed class WindowsOverlaySession : IDisposable
 {
     private readonly IOverlayWindowService overlay;
@@ -24,7 +24,7 @@ public sealed class WindowsOverlaySession : IDisposable
             registrations.Add(hotkeys.Register(bindings.ToggleInteractive,
                 () => SetMode(mode == OverlayMode.Passive ? OverlayMode.Interactive : OverlayMode.Passive)));
             registrations.Add(hotkeys.Register(bindings.Refresh, refresh));
-            SetMode(OverlayMode.Passive);
+            SetMode(OverlayMode.Interactive);
         }
         catch
         {

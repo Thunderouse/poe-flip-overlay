@@ -25,7 +25,9 @@ For a Windows self-contained build, `tools/build.ps1` uses Inno Setup for a per-
 
 ## Windows overlay controls (native behavior not yet verified)
 
-Windows startup attempts to register recovery hotkeys **before** enabling passive click-through mode. Defaults:
+Windows starts as an interactive window with a standard title bar, resize borders, taskbar entry and minimize/maximize/close buttons. Drag the title bar to move it. Mouse input works immediately; passive click-through is never enabled automatically, including after restarting the app.
+
+Select **Enable click-through** in the window only when you want mouse input to pass through to the game. The visible status line shows the shortcut that restores mouse input. Recovery hotkeys are registered before this button becomes available. Defaults:
 
 - **Ctrl+Shift+F8** — show/hide the application's own panel.
 - **Ctrl+Shift+F9** — switch interactive / passive click-through.

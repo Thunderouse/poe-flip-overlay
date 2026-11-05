@@ -27,6 +27,7 @@ public sealed class WindowsOverlayBridge : IDisposable
     private readonly WindowDecorations originalDecorations;
     private WindowsPlatformService? platform;
     private WindowsOverlaySession? session;
+    private OverlayHotkeys? bindings;
     private nint ownHandle;
     private bool disposed;
     private bool syncingMode;
@@ -76,9 +77,6 @@ public sealed class WindowsOverlayBridge : IDisposable
         try
         {
             window.SetValue(InstanceProperty, this);
-            window.WindowDecorations = WindowDecorations.None;
-            window.ShowInTaskbar = false;
-            window.ShowActivated = false;
             Win32Properties.AddWndProcHookCallback(window, hook);
             window.Opened += OnOpened;
             window.Closing += OnClosing;
@@ -98,14 +96,13 @@ public sealed class WindowsOverlayBridge : IDisposable
             var handle = window.TryGetPlatformHandle();
             if (handle is null || handle.Handle == 0 || handle.HandleDescriptor != "HWND")
                 throw new InvalidOperationException("Avalonia did not provide the application's own HWND.");
-            var bindings = OverlayHotkeys.ReadEnvironment(Environment.GetEnvironmentVariable);
+            bindings = OverlayHotkeys.ReadEnvironment(Environment.GetEnvironmentVariable);
             ownHandle = handle.Handle;
             platform = new WindowsPlatformService(ownHandle);
             session = new WindowsOverlaySession(platform, platform, bindings, ToggleVisibility, Refresh, ModeChanged);
             window.Topmost = true;
             window.SetValue(IsAvailableProperty, true);
-            window.SetValue(StatusProperty, $"Windows own-window overlay · {ModeText()} · " +
-                $"Show/hide: {Describe(bindings.ToggleVisibility)} · Interactive: {Describe(bindings.ToggleInteractive)} · Refresh: {Describe(bindings.Refresh)}. Game compatibility unverified.");
+            UpdateStatus();
         }
         catch (Exception e) { Fail(e); }
     }
@@ -117,11 +114,18 @@ public sealed class WindowsOverlayBridge : IDisposable
         {
             SetIsInteractive(window, mode == OverlayMode.Interactive);
             window.ShowActivated = mode == OverlayMode.Interactive;
+            UpdateStatus();
         }
         finally { syncingMode = false; }
     }
 
     private string ModeText() => GetIsInteractive(window) ? "Interactive" : "Passive / click-through";
+    private void UpdateStatus()
+    {
+        if (bindings is null) return;
+        window.SetValue(StatusProperty, $"{ModeText()} · " +
+            $"Show/hide: {Describe(bindings.ToggleVisibility)} · Mouse input: {Describe(bindings.ToggleInteractive)} · Refresh: {Describe(bindings.Refresh)}.");
+    }
     private static string Describe(HotkeyGesture gesture) => $"{gesture.Modifiers}+{gesture.Key}";
 
     private void ToggleVisibility()

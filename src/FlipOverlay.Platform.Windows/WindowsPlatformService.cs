@@ -16,7 +16,6 @@ public interface IWindowNativeApi
 
 public sealed class WindowsPlatformService : IOverlayWindowService, IHotkeyService, IDisposable
 {
-    private const int ToolWindow = 0x80;
     private const int Transparent = 0x20;
     private const int NoActivate = 0x08000000;
     private const int Layered = 0x80000;
@@ -49,7 +48,7 @@ public sealed class WindowsPlatformService : IOverlayWindowService, IHotkeyServi
     {
         Check();
         if (!Enum.IsDefined(mode)) throw new ArgumentOutOfRangeException(nameof(mode));
-        var style = (originalStyle | ToolWindow) & ~(Transparent | NoActivate);
+        var style = originalStyle & ~(Transparent | NoActivate);
         if (mode == OverlayMode.Passive) style |= Transparent | NoActivate | Layered;
         native.SetExtendedStyle(handle, style);
         changed = true;

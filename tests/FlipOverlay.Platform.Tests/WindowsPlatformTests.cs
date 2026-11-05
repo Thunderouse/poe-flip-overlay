@@ -24,10 +24,10 @@ public sealed class WindowsPlatformTests
         using var platform = new WindowsPlatformService(42, native, isWindows: true);
         platform.SetMode(OverlayMode.Passive);
         Assert.Equal((nint)42, native.Window);
-        Assert.Equal(0x1000 | 0x80 | 0x20 | 0x8000000 | 0x80000, native.Style);
+        Assert.Equal(0x1000 | 0x20 | 0x8000000 | 0x80000, native.Style);
         Assert.Equal(1, native.FrameUpdates);
         platform.SetMode(OverlayMode.Interactive);
-        Assert.Equal(0x1000 | 0x80, native.Style);
+        Assert.Equal(0x1000, native.Style);
         Assert.Equal(2, native.FrameUpdates);
     }
 
@@ -76,7 +76,7 @@ public sealed class WindowsPlatformTests
         var native = new FakeNative { Style = original };
         var platform = new WindowsPlatformService(42, native, isWindows: true);
         platform.SetMode(OverlayMode.Interactive);
-        Assert.Equal(0x1000 | 0x80 | 0x80000, native.Style);
+        Assert.Equal(0x1000 | 0x80000, native.Style);
         platform.Dispose();
         Assert.Equal(original, native.Style);
     }

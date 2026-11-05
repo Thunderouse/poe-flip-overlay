@@ -7,7 +7,7 @@ namespace FlipOverlay.Platform.Tests;
 public sealed class OverlaySessionTests
 {
     [Fact]
-    public void Session_wires_passive_interactive_visibility_refresh_and_unregisters_on_dispose()
+    public void Session_starts_interactive_and_wires_explicit_passive_visibility_refresh_and_cleanup()
     {
         var platform = new FakePlatform();
         var toggles = 0;
@@ -15,12 +15,12 @@ public sealed class OverlaySessionTests
         using (var session = new WindowsOverlaySession(platform, platform, OverlayHotkeys.Default,
             () => toggles++, () => refreshes++, _ => { }))
         {
-            Assert.Equal(OverlayMode.Passive, platform.Mode);
+            Assert.Equal(OverlayMode.Interactive, platform.Mode);
             platform.Callbacks[1]();
             platform.Callbacks[2]();
             platform.Callbacks[3]();
             Assert.Equal(1, toggles);
-            Assert.Equal(OverlayMode.Interactive, platform.Mode);
+            Assert.Equal(OverlayMode.Passive, platform.Mode);
             Assert.Equal(1, refreshes);
             session.SetMode(OverlayMode.Passive);
             Assert.Equal(OverlayMode.Passive, platform.Mode);
